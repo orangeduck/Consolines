@@ -220,7 +220,7 @@ void DrawDebugText3D(
         }
         else if (string[i] == '\r')
         {
-            // Carriage return resets the xOffste
+            // Carriage return resets the xOffset
             xOffset = 0.0;
         }
         else if (string[i] == '\t')
@@ -230,17 +230,18 @@ void DrawDebugText3D(
         }
         else if (string[i] < '!' || string[i] > '~')
         {
-            // Every other character is rendered as a space
+            // Every other non-printable character is rendered as a space
             xOffset += 0.5f * scale * width + spacing;
         }
         else
         {
-            // Get the look-up table index
+            // Get the look-up table index from the character code
             int ci = string[i] - '!';
             
-            // For each line segment...
+            // Get the number of line segments and the offset into the lines array
             int lnum = consolines_nums[ci];
             int loff = consolines_offsets[ci];
+            
             for (int li = 0; li < lnum; li++)
             {
                 // Unpack integer coordinates
